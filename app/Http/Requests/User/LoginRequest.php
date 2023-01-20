@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Code;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CodeRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class CodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'code_new' => ['required', 'max:100', 'unique:codes'],
+            'email' => ['required', 'email:rfc'],
+            'password' => ['required'],
         ];
     }
 }

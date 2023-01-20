@@ -1,10 +1,10 @@
 @extends('layout')
 
-@section('title', 'Sing Up')
+@section('title', 'Регистрация')
 
 @section('content')
     <div class="row">
-        <form action="{{route('sing-up')}}" method="post">
+        <form action="{{route('sing-in')}}" method="post">
             @csrf
             <div class="form-group">
                 <label for="name">{{ __('validation.attributes.name') }}</label>

@@ -24,8 +24,8 @@ class SingInRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'email:rfc'],
-            'password' => ['required'],
+            'email' => ['required', 'email:rfc', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'max:25', 'confirmed'],
         ];
     }
 }

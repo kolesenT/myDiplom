@@ -5,9 +5,11 @@
     <div class="container">
         @if (!auth()->check())
             <div>
-                <a href="{{route('sing-up.codeForm')}}">Войти по пригласительному коду</a>
+                <a href="{{route('sing-in.codeForm')}}">Войти по пригласительному коду</a>
                 <br>
-                <a href="#">Войти</a>
+                <a href="{{route('sing-in')}}">Регистрация</a>
+                <br>
+                <a href="{{route('login')}}">Войти</a>
                 <br>
             </div>
         @else

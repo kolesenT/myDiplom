@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\User\SingInRequest;
-use App\Models\User;
+use App\Http\Requests\User\LoginRequest;
+use App\Models\Role;
+use App\Models\SchoolClass;
 use App\Models\User_info;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -15,7 +15,7 @@ class LoginController extends Controller
         return view('login');
     }
 
-    public function loginIn(SingInRequest $request)
+    public function loginIn(LoginRequest $request)
     {
         $data = $request->validated();
 
@@ -23,9 +23,13 @@ class LoginController extends Controller
         {
             $user = Auth::user();
 
-            return match ($user->user_info->roles->name)
+            $role = Role::find($user->user_info->role_id);
+
+            $schoolClass = SchoolClass::all();
+
+            return match ($role->name)
             {
-                User_info::IS_ADMIN => view('admin'),
+                User_info::IS_ADMIN => view('admin', compact('schoolClass')),
                 User_info::IS_TEACHER => view('teacher.teacher'),
                 User_info::IS_PARENT=> view('parent'),
                 User_info::IS_PUPIL=> view('pupil'),

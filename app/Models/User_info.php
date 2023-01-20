@@ -14,7 +14,7 @@ class User_info extends Model
 
     use HasFactory;
 
-    protected $table = 'users_info';
+    protected $table = 'user_info';
 
     protected $fillable = [
         'surmane',

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,10 +23,12 @@ Route::get('/admin_panel', [MainController::class, 'adminPage'])
     ->name('admin');
 
 Route::group(
-    ['prefix' => '/sing-up'],
+    ['prefix' => '/sing-in'],
     function () {
-//        Route::get('', [UserController::class, 'singUpForm'])
-//            ->name('sing-up');
+        Route::get('', [UserController::class, 'singInForm'])
+            ->name('sing-in.form');
+        Route::post('', [UserController::class, 'singIn'])
+            ->name('sing-in');
 
         Route::get('/code', [CodeController::class, 'singUpCodeForm'])
             ->name('sing-up.codeForm');
