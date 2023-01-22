@@ -13,14 +13,14 @@
                         <a class="nav-link active" aria-current="page" href="#">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Добавить пользователя</a>
+                        <a class="nav-link" href="{{route('schClass.list')}}">Классы</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Расписание</a>
+                        <a class="nav-link" href="{{route('discipline.list')}}">Предметы</a>
                     </li>
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link" href="#">Добавить пользователя</a>--}}
-{{--                    </li>--}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('userInfo.list')}}">Пользователи</a>
+                    </li>
 {{--                    <li class="nav-item dropdown">--}}
 {{--                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
 {{--                            Dropdown link--}}
@@ -37,14 +37,26 @@
 
         <div class="row text-start">
             <div class="col-3">
+                <h3>Классы</h3>
                 <ul class="list-group">
                     @foreach($schoolClass as $item)
                         <li class="list-group-item"><a class="nav-link" href="#">{{$item->num}}  {{$item->letter}} Класс</a></li>
                     @endforeach
                 </ul>
+                <br>
+                <a class="btn btn-primary" href="{{route('schClass.createForm')}}" role="button">Добавить </a>
             </div>
             <div class="col-6">col-6</div>
-            <div class="col-3">col-3</div>
+            <div class="col-3">
+                <h3>Предметы</h3>
+                <ul class="list-group">
+                    @foreach($disciplines as $item)
+                        <li class="list-group-item"><a class="nav-link" href="#">{{$item->title}} </a></li>
+                    @endforeach
+                </ul>
+                <br>
+                <a class="btn btn-primary" href="{{route('discipline.createForm')}}" role="button">Добавить </a>
+            </div>
         </div>
     </div>
 

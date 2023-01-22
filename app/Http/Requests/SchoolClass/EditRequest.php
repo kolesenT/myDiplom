@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\SchoolClass;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SingInRequest extends FormRequest
+class EditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class SingInRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'email:rfc', 'max:255', 'unique:user'],
-            'password' => ['required', 'string', 'min:8', 'max:25', 'confirmed'],
+            'num' => ['required', 'numeric'],
+            'letter' => ['string', 'min:1', 'max:2'],
         ];
     }
 }

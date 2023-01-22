@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\SingInRequest;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\User_info;
 use Illuminate\Http\Request;

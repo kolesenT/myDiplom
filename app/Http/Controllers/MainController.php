@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Discipline;
 use App\Models\SchoolClass;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,8 @@ class MainController extends Controller
     public function adminPage()
     {
         $schoolClass = SchoolClass::all();
-        return view('admin', compact('schoolClass'));
+        $disciplines = Discipline::all();
+
+        return view('admin', compact('schoolClass', 'disciplines'));
     }
 }

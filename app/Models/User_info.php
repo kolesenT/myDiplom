@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +22,32 @@ class User_info extends Model
         'name',
         'patronymic',
     ];
+
+    protected function surname(): Attribute
+    {
+        return Attribute::make(set: fn ($value) => ucfirst(strtolower($value)));
+    }
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(set: fn ($value) => ucfirst(strtolower($value)));
+    }
+
+    protected function patronymic(): Attribute
+    {
+        return Attribute::make(set: fn ($value) => ucfirst(strtolower($value)));
+    }
+
+    protected function fullname(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => new User_info(
+                $attributes['surname'],
+                $attributes['name'],
+                $attributes['patronymic']
+        ),
+        );
+    }
 
     public function roles()
     {

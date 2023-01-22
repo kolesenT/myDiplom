@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\CodeController;
+use App\Http\Controllers\DisciplineController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserInfoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,3 +50,58 @@ Route::group(
     }
 );
 
+Route::group(
+    ['prefix' => '/discipline'],
+    function (){
+        Route::get('', [DisciplineController::class, 'list'])
+            ->name('discipline.list');
+
+        Route::get('/create', [DisciplineController::class, 'createForm'])
+            ->name('discipline.createForm');
+        Route::post('/create', [DisciplineController::class, 'create'])
+            ->name('discipline.create');
+
+        Route::group(['prefix' => '/{discipline}/edit'], function () {
+            Route::get('', [DisciplineController::class, 'editForm'])
+                ->name('discipline.editForm');
+
+            Route::post('', [DisciplineController::class, 'edit'])
+                ->name('discipline.edit');
+        });
+
+        Route::post('/{discipline}/delete', [DisciplineController::class, 'delete'])
+            ->name('discipline.delete');
+    }
+);
+
+Route::group(
+    ['prefix' => '/class'],
+    function (){
+        Route::get('', [SchoolClassController::class, 'list'])
+            ->name('schClass.list');
+
+        Route::get('/create', [SchoolClassController::class, 'createForm'])
+            ->name('schClass.createForm');
+        Route::post('/create', [SchoolClassController::class, 'create'])
+            ->name('schClass.create');
+
+        Route::group(['prefix' => '/{schoolClass}/edit'], function () {
+            Route::get('', [SchoolClassController::class, 'editForm'])
+                ->name('schClass.editForm');
+
+            Route::post('', [SchoolClassController::class, 'edit'])
+                ->name('schClass.edit');
+        });
+
+        Route::post('/{schoolClass}/delete', [SchoolClassController::class, 'delete'])
+            ->name('schClass.delete');
+    }
+);
+
+Route::group(
+    ['prefix' => '/users'],
+        function(){
+        Route::get('', [UserInfoController::class, 'list'])
+            ->name('userInfo.list');
+        }
+        );

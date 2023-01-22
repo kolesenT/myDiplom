@@ -183,6 +183,9 @@ return [
         'surname' => 'Surname',
         'name' => 'Name',
         'patronymic' => 'Patronymic',
+        'discipline' => 'Discipline',
+        'class' => 'Class',
+        'letter' => 'Letter',
     ],
 
 ];
