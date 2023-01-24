@@ -4,6 +4,7 @@ use App\Http\Controllers\CodeController;
 use App\Http\Controllers\DisciplineController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserInfoController;
@@ -24,6 +25,9 @@ Route::get('/', [MainController::class, 'index'])
     ->name('home');
 Route::get('/admin_panel', [MainController::class, 'adminPage'])
     ->name('admin');
+
+Route::get('/lessons', [MainController::class, 'lessons'])
+    ->name('lessons');
 
 Route::group(
     ['prefix' => '/sing-in'],
@@ -49,6 +53,9 @@ Route::group(
             ->name('login-in');
     }
 );
+
+Route::post('/logout', [LoginController::class, 'logout'])
+    ->name('logout');
 
 Route::group(
     ['prefix' => '/discipline'],
@@ -103,5 +110,34 @@ Route::group(
         function(){
         Route::get('', [UserInfoController::class, 'list'])
             ->name('userInfo.list');
-        }
-        );
+
+        Route::group(['prefix' =>'/create'], function (){
+            Route::get('', [UserInfoController::class, 'createForm'])
+            ->name('users.createForm');
+
+            Route::post('', [UserInfoController::class, 'create'])
+                ->name('users.create');
+        });
+
+        Route::group(['prefix' => '/{userInfo}/edit'], function (){
+            Route::get('', [UserInfoController::class, 'editForm'])
+                ->name('users.editForm');
+
+            Route::post('', [UserInfoController::class, 'edit'])
+                ->name('users.edit');
+        });
+
+            Route::post('/{userInfo}/delete', [UserInfoController::class, 'delete'])
+                ->name('users.delete');
+
+            Route::get('/{userInfo}/show', [UserInfoController::class, 'show'])
+                ->name('users.show');
+
+        });
+
+Route::group(
+    ['prefix'=> '/schedule'],
+    function (){
+        Route::get('/', [ScheduleController::class, 'list'])
+            ->name('schedule.list');
+    });

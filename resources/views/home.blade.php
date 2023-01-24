@@ -16,7 +16,7 @@
             <div class="container">
 
             </div>
-            <form action="#" method="post" class="form-check-inline">
+            <form action="{{route('logout')}}" method="post" class="form-check-inline">
                 @csrf
                 <button class="btn btn-danger">Logout</button>
             </form>

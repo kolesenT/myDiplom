@@ -22,7 +22,6 @@ class DaysTableSeeder extends Seeder
             "Четверг",
             "Пятница",
             "Суббота",
-            "Воскресенье",
         ];
         foreach ($week_days as $items){
             DB::table('days')->insert([

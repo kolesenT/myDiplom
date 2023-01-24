@@ -18,7 +18,7 @@ class User_info extends Model
     protected $table = 'user_info';
 
     protected $fillable = [
-        'surmane',
+        'surname',
         'name',
         'patronymic',
     ];
@@ -41,15 +41,14 @@ class User_info extends Model
     protected function fullname(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => new User_info(
-                $attributes['surname'],
-                $attributes['name'],
-                $attributes['patronymic']
-        ),
-        );
+            get: function ($value, $attributes) {
+                return  $attributes['surname'] .' ' .
+                        $attributes['name'] . ' ' .
+                        $attributes['patronymic'];
+        });
     }
 
-    public function roles()
+    public function role()
     {
         return $this->belongsTo(Role::class);
     }
@@ -58,7 +57,7 @@ class User_info extends Model
     {
         return $this->belongsTo(Gender::class);
     }
-    public function codes()
+    public function code()
     {
         return $this->belongsTo(Code::class);
     }
