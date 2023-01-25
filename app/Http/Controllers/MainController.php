@@ -11,7 +11,7 @@ class MainController extends Controller
 {
     public function index()
     {
-        return view('home');
+        return view('welcome');
     }
 
     public function adminPage()
@@ -19,7 +19,7 @@ class MainController extends Controller
         $schoolClass = SchoolClass::all();
         $disciplines = Discipline::all();
         $lessons = NumLesson::query()->orderBy('num')->get();
-        return view('admin', compact('schoolClass', 'disciplines', 'lessons'));
+        return view('home', compact('schoolClass', 'disciplines', 'lessons'));
     }
 
     public  function lessons()

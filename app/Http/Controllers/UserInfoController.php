@@ -91,6 +91,9 @@ class UserInfoController extends Controller
 
     public function show(User_info $userInfo)
     {
+//                   echo '<pre>';
+//           dd($userInfo ->user());
+//           echo '</pre>';
         return view('user.show', compact('userInfo'));
     }
 }

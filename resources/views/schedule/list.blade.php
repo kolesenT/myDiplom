@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Админ Панель')
+@section('title', 'Рассписание')
 @section('content')
 <div>
     <h2>Расписание занятий {{$schoolClass->num}}{{$schoolClass->letter}} класса</h2>
@@ -23,14 +23,14 @@
                 </thead>
                 <tbody>
                     @foreach($schedule as $item)
-                        @if($day->id = $item->days->id || $item->class->id = $schoolClass->id)
+{{--                        @if($item->days->contains('id', $day->id))--}}
                         <tr>
                             <td>{{$item->numLesson->num}}</td>
-                            <td>{{ $item->numLesson->begin_time }}.00 </td>
+                            <td>{{$item->numLesson->begin_time}}.00 </td>
                             <td>{{$item->numLesson->begin_time}}.{{$item->numLesson->lesson_time}}</td>
                             <td>{{$item->discipline->title}}</td>
                         </tr>
-                        @endif
+{{--                        @endif--}}
                     @endforeach
                 </tbody>
             </table>
@@ -38,4 +38,6 @@
     </div>
     @endforeach
 </div>
+<br>
+<a class="btn btn-primary" href="{{route('schedule.createForm')}}" role="button">Добавить </a>
 @endsection

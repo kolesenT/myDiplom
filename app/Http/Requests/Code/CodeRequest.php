@@ -24,7 +24,7 @@ class CodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'code_new' => ['required', 'max:100', 'unique:codes'],
+            'code_new' => ['required', 'min:1', 'max:100'],
         ];
     }
 }

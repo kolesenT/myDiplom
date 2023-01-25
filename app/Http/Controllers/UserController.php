@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\SingInRequest;
+use App\Models\Code;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\User_info;
@@ -22,18 +23,22 @@ class UserController extends Controller
 
         $user = new User($data);
 
-        $user_info = User_info::find(1);
-
-        $user->user_info() -> associate($user_info);
-        $user->name = $request->get('name');
-        $user->email = $request->get('email');
-        $user->password = Hash::make($request->get('password'));
+        $user_info = User_info::find(2);
+//                echo '<pre>';
+//               dd($user_info);
+//                echo '</pre>';
+        $user->userInfo() -> associate($user_info);
+        $user->name = $user_info->surname . ' ' . $user_info->name;
 
         $user-> save();
 
+        $code = Code::find($user_info->code_id);
+        $code->is_use = 1;
+        $code->save();
+
         session()->flash('success', 'Success!');
 
-        return redirect()->route('home');
+        return redirect()->route('welcome');
     }
 
 }

@@ -179,7 +179,7 @@ return [
         'email' => 'Email',
         'password' => 'Password',
         'password_confirmation' => 'Confirm Password',
-        'code' => 'Code',
+        'code_new' => 'Code',
         'surname' => 'Surname',
         'name' => 'Name',
         'patronymic' => 'Patronymic',

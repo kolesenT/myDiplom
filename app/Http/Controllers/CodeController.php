@@ -5,34 +5,35 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Code\CodeRequest;
 use App\Models\Code;
+use App\Models\User_info;
 use Illuminate\Http\Request;
 
 class CodeController extends Controller
 {
     public function singUpCodeForm()
     {
-        return view('sing-up-code');
+        return view('sing-in-code');
     }
 
     public function singUpCode(CodeRequest $request)
     {
-        $data = $request -> validated();
-
         if ($request -> has('code_new')){
             $code = $request->code_new;
 
-            $query = Code::query();
-//            echo '<pre>';
-//            dump($query->where('code_new', '00000000')->first());
-//            echo '</pre>';
+            $query = Code::query()->where('code_new', $code)->first();
 
-            if ($query->where('code_new', $code)->first()) {
-                view('sing-in.form');
+            if ($query)
+            {
+                $user_info = User_info::query()->where('code_id', $query->id)->first();
+//                echo '<pre>';
+//                dd($user_info);
+//                echo '</pre>';
+                return view('sing-in', compact('user_info'));
             }
             else{
                 session()->flash('error', 'code not found!');
 
-                return redirect()->route('home');
+                return redirect()->route('welcome');
             }
 
 

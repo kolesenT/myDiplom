@@ -48,6 +48,11 @@ class User_info extends Model
         });
     }
 
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);

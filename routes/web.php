@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainController::class, 'index'])
+    ->name('welcome');
+Route::get('/home', [MainController::class, 'adminPage'])
     ->name('home');
-Route::get('/admin_panel', [MainController::class, 'adminPage'])
-    ->name('admin');
 
 Route::get('/lessons', [MainController::class, 'lessons'])
     ->name('lessons');
@@ -32,9 +32,9 @@ Route::get('/lessons', [MainController::class, 'lessons'])
 Route::group(
     ['prefix' => '/sing-in'],
     function () {
-        Route::get('', [UserController::class, 'singInForm'])
+        Route::get('/', [UserController::class, 'singInForm'])
             ->name('sing-in.form');
-        Route::post('', [UserController::class, 'singIn'])
+        Route::post('/', [UserController::class, 'singIn'])
             ->name('sing-in');
 
         Route::get('/code', [CodeController::class, 'singUpCodeForm'])
@@ -58,7 +58,7 @@ Route::post('/logout', [LoginController::class, 'logout'])
     ->name('logout');
 
 Route::group(
-    ['prefix' => '/discipline'],
+    ['prefix' => '/discipline', 'middleware' => 'auth'],
     function (){
         Route::get('', [DisciplineController::class, 'list'])
             ->name('discipline.list');
@@ -82,7 +82,7 @@ Route::group(
 );
 
 Route::group(
-    ['prefix' => '/class'],
+    ['prefix' => '/class', 'middleware' => 'auth'],
     function (){
         Route::get('', [SchoolClassController::class, 'list'])
             ->name('schClass.list');
@@ -106,7 +106,7 @@ Route::group(
 );
 
 Route::group(
-    ['prefix' => '/users'],
+    ['prefix' => '/users', 'middleware' => 'auth'],
         function(){
         Route::get('', [UserInfoController::class, 'list'])
             ->name('userInfo.list');
@@ -136,8 +136,16 @@ Route::group(
         });
 
 Route::group(
-    ['prefix'=> '/schedule'],
+    ['prefix'=> '/schedule', 'middleware' => 'auth'],
     function (){
         Route::get('/', [ScheduleController::class, 'list'])
             ->name('schedule.list');
+
+        Route::group(['prefix' =>'/create'], function (){
+            Route::get('', [ScheduleController::class, 'createForm'])
+                ->name('schedule.createForm');
+
+            Route::post('', [ScheduleController::class, 'create'])
+                ->name('schedule.create');
+        });
     });

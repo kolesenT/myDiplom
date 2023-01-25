@@ -1,27 +1,61 @@
 @extends('layout')
 
-@section('title', 'Главная')
+@section('title', 'Админ Панель')
 @section('content')
-    <div class="container">
-        @if (!auth()->check())
-            <div>
-                <a href="{{route('sing-up.codeForm')}}">Войти по пригласительному коду</a>
+         <div class="row text-start">
+            <div class="col-3">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        <h4>Расписание звонков </h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">№ урока</th>
+                                <th scope="col">Начало</th>
+                                <th scope="col">Конец</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($lessons as $lesson)
+                                <tr>
+                                    <td>{{$lesson->num}}</td>
+                                    <td>{{$lesson->begin_time}}.00 </td>
+                                    <td>{{$lesson->begin_time}}.{{$lesson->lesson_time}}</td>
+                                </tr>
+
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a class="btn btn-primary" href="{{route('lessons')}}" role="button">Редактировать </a>
+                    </div>
+                </div>
                 <br>
-                <a href="{{route('sing-in')}}">Регистрация</a>
+                <h3>Классы</h3>
+                <ul class="list-group">
+                    @foreach($schoolClass as $item)
+                        <li class="list-group-item"><a class="nav-link" href="#">{{$item->num}}  {{$item->letter}} Класс</a></li>
+                    @endforeach
+                </ul>
                 <br>
-                <a href="{{route('login')}}">Войти</a>
-                <br>
+                <a class="btn btn-primary" href="{{route('schClass.createForm')}}" role="button">Добавить </a>
             </div>
-        @else
-            <div class="container">
+            <div class="col-6">
 
             </div>
-            <form action="{{route('logout')}}" method="post" class="form-check-inline">
-                @csrf
-                <button class="btn btn-danger">Logout</button>
-            </form>
-        @endif
-    </div>
+            <div class="col-3">
+                <h3>Предметы</h3>
+                <ul class="list-group">
+                    @foreach($disciplines as $item)
+                        <li class="list-group-item"><a class="nav-link" href="#">{{$item->title}} </a></li>
+                    @endforeach
+                </ul>
+                <br>
+                <a class="btn btn-primary" href="{{route('discipline.createForm')}}" role="button">Добавить </a>
+            </div>
+        </div>
 
 @endsection
-

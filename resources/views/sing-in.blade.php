@@ -4,15 +4,10 @@
 
 @section('content')
     <div class="row">
+        <h3>{{$user_info->fullname}}</h3>
+        <br>
         <form action="{{route('sing-in')}}" method="post">
             @csrf
-            <div class="form-group">
-                <label for="name">{{ __('validation.attributes.name') }}</label>
-                <input value="{{ old ('name') }}" name="name" type ="text" class="form-control @error('name') is-invalid @enderror">
-                @error('name')
-                <div class="invalid-feedback">{{$message}}</div>
-                @enderror
-            </div>
 
             <div class="form-group">
                 <label for="email">{{ __('validation.attributes.email') }}</label>
@@ -37,9 +32,9 @@
                 <div class="invalid-feedback">{{$message}}</div>
                 @enderror
             </div>
-
+            <br>
             <div class="form-group">
-                <button class="btn btn-primary"> Sing Up</button>
+                <button class="btn btn-primary">Сохранить</button>
             </div>
         </form>
     </div>

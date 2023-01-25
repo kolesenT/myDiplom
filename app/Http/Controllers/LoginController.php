@@ -22,26 +22,27 @@ class LoginController extends Controller
 
         if (Auth::attempt($data))
         {
-            $user = Auth::user();
-
-            $role = Role::find($user->user_info->role_id);
-
-            return match ($role->name)
-            {
-                User_info::IS_ADMIN =>  redirect()->route('admin'),
-                User_info::IS_TEACHER => view('teacher.teacher'),
-                User_info::IS_PARENT=> view('parent'),
-                User_info::IS_PUPIL=> view('pupil'),
-                default => view('home'),
-            };
+           return redirect()->route('home');
+//            $user = Auth::user();
+//
+//            $role = Role::find($user->userInfo->role_id);
+//
+//            return match ($role->name)
+//            {
+//                User_info::IS_ADMIN =>  redirect()->route('home'),
+//                User_info::IS_TEACHER => view('teacher.teacher'),
+//                User_info::IS_PARENT=> view('parent'),
+//                User_info::IS_PUPIL=> view('pupil'),
+//                default => view('welcome'),
+//            };
         }
-        redirect()->route('home');
+        return redirect()->route('welcome');
     }
 
     public function logout()
     {
         Auth::logout();
 
-        return redirect()->route('home');
+        return redirect()->route('welcome');
     }
 }
