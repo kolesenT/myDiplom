@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('schedule', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('days_id')->constrained('days');
+            $table->foreignId('day_id')->constrained('days');
             $table->foreignId('class_id')->constrained('class');
             $table->foreignId('discipline_id')->constrained('disciplines');
             $table->foreignId('num_lesson_id')->constrained('num_lessons');

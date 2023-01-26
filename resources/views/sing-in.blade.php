@@ -33,6 +33,8 @@
                 @enderror
             </div>
             <br>
+                <input hidden="true" name="user_info" value="{{$user_info->id}}">
+
             <div class="form-group">
                 <button class="btn btn-primary">Сохранить</button>
             </div>

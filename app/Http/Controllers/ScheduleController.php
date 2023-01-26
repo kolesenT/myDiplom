@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Schedule\CreateRequest;
 use App\Models\Day;
 use App\Models\Discipline;
 use App\Models\NumLesson;
@@ -14,15 +15,11 @@ class ScheduleController extends Controller
     public function list()
     {
         $schedule = Schedule::query()
-            ->with(['days', 'class', 'discipline', 'numLesson'])
-            ->where('class_id', 1)
-            ->orderBy('days_id')->get();
+            ->orderBy('day_id')->get();
 
         $days = Day::query()->orderBy('id')->get();
-        $schoolClass = SchoolClass::find(2);
-//        echo '<pre>';
-//           dd($schedule);
-//           echo '</pre>';
+        $schoolClass = SchoolClass::find(1);
+
         return view('schedule.list', compact('schedule', 'days', 'schoolClass'));
     }
 
@@ -33,8 +30,11 @@ class ScheduleController extends Controller
         $discipline = Discipline::query()->orderBy('title')->get();
         return view('schedule.create', compact('days', 'numLesson', 'discipline'));
     }
-    public function create()
+    public function create(CreateRequest $request)
     {
-        //
+        $data = $request->validated();
+        echo '<pre>';
+           dd($data);
+          echo '</pre>';
     }
 }

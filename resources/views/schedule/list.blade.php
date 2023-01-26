@@ -23,14 +23,14 @@
                 </thead>
                 <tbody>
                     @foreach($schedule as $item)
-{{--                        @if($item->days->contains('id', $day->id))--}}
+                        @if($item->day->id == $day->id)
                         <tr>
                             <td>{{$item->numLesson->num}}</td>
                             <td>{{$item->numLesson->begin_time}}.00 </td>
                             <td>{{$item->numLesson->begin_time}}.{{$item->numLesson->lesson_time}}</td>
                             <td>{{$item->discipline->title}}</td>
                         </tr>
-{{--                        @endif--}}
+                        @endif
                     @endforeach
                 </tbody>
             </table>

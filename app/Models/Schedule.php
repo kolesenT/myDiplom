@@ -11,7 +11,7 @@ class Schedule extends Model
 
     protected $table = 'schedule';
 
-    public function days()
+    public function day()
     {
         return $this ->belongsTo(Day::class);
     }
