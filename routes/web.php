@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\DisciplineController;
+use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ScheduleController;
@@ -102,6 +103,15 @@ Route::group(
 
         Route::post('/{schoolClass}/delete', [SchoolClassController::class, 'delete'])
             ->name('schClass.delete');
+
+        Route::get('/{schoolClass}/show', [SchoolClassController::class, 'show'])
+            ->name('schClass.show');
+
+        Route::get('/{schoolClass}/addUsers', [SchoolClassController::class, 'addUsersForm'])
+            ->name('schClass.addUsersForm');
+
+//        Route::post('/{schoolClass}/addUsers', [SchoolClassController::class, 'addUsers'])
+//            ->name('schClass.addUsers');
     }
 );
 
@@ -138,14 +148,20 @@ Route::group(
 Route::group(
     ['prefix'=> '/schedule', 'middleware' => 'auth'],
     function (){
-        Route::get('/', [ScheduleController::class, 'list'])
+        Route::get('/{schoolClass}', [ScheduleController::class, 'list'])
             ->name('schedule.list');
 
         Route::group(['prefix' =>'/create'], function (){
-            Route::get('', [ScheduleController::class, 'createForm'])
+            Route::get('/{schoolClass}', [ScheduleController::class, 'createForm'])
                 ->name('schedule.createForm');
 
             Route::post('', [ScheduleController::class, 'create'])
                 ->name('schedule.create');
         });
+    });
+
+Route::group(['prefix'=> '/journal', 'middleware' => 'auth'],
+    function (){
+        Route::get('/{schoolClass}', [JournalController::class, 'show'])
+            ->name('journal.show');
     });

@@ -66,4 +66,10 @@ class User_info extends Model
     {
         return $this->belongsTo(Code::class);
     }
+
+    public function schoolClass()
+    {
+        return $this -> belongsToMany(SchoolClass::class, 'class_user_info',
+            'user_info_id', 'class_id');
+    }
 }

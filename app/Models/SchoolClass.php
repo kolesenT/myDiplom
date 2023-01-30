@@ -15,4 +15,10 @@ class SchoolClass extends Model
         'num',
         'letter',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User_info::class, 'class_user_info',
+            'class_id', 'user_info_id');
+    }
 }

@@ -25,9 +25,7 @@ class CodeController extends Controller
             if ($query)
             {
                 $user_info = User_info::query()->where('code_id', $query->id)->first();
-//                echo '<pre>';
-//                dd($user_info);
-//                echo '</pre>';
+
                 return view('sing-in', compact('user_info'));
             }
             else{

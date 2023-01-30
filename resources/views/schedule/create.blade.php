@@ -7,11 +7,11 @@
 <h1>CREATE</h1>
 <form action="{{route('schedule.create')}}" method="post">
     @csrf
-<div class="col-sm-6">
-    <div class="card border-primary mb-4">
+    <div class="col-sm-6">
+     <div class="card border-primary mb-4">
         <br>
         <h5>День недели</h5>
-        <select class="form-select" aria-label="Default select example">
+        <select name="days" class="form-select" aria-label="Default select example">
             @foreach($days as $day)
               <option value="{{$day->id}}">{{$day->title}}</option>
             @endforeach
@@ -29,8 +29,8 @@
                     <tr>
                         <td>{{$item->num}}</td>
                         <td>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Предмет</option>
+                            <select name="lesson[{{$item->num}}]" class="form-select" aria-label="Default select example">
+                                <option value="" selected>Предмет</option>
                                 @foreach($discipline as $d)
                                     <option value="{{$d->id}}">{{$d->title}}</option>
                                 @endforeach
@@ -40,9 +40,10 @@
                 @endforeach
             </tbody>
         </table>
+     </div>
     </div>
-</div>
     <br>
+    <input name="schoolClass" value="{{$schoolClass->id}}" hidden="true">
     <button class="btn btn-primary" type="submit"> Добавить </button>
 </form>
 @endsection

@@ -3,7 +3,7 @@
 @section('title', 'Рассписание')
 @section('content')
 <div>
-    <h2>Расписание занятий {{$schoolClass->num}}{{$schoolClass->letter}} класса</h2>
+    <h2>Расписание занятий {{$schoolClass->num}} {{$schoolClass->letter}} класса </h2>
     <br>
 </div>
     <br>
@@ -39,5 +39,5 @@
     @endforeach
 </div>
 <br>
-<a class="btn btn-primary" href="{{route('schedule.createForm')}}" role="button">Добавить </a>
+<a class="btn btn-primary" href="{{route('schedule.createForm', ['schoolClass'=>$schoolClass->id])}}" role="button">Добавить </a>
 @endsection

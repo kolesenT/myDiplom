@@ -18,7 +18,7 @@
                 </svg>
                 <a class="navbar-brand" href="#"><h1>Дневник </h1></a>
 
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     @if(auth()->check())
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -33,16 +33,27 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('userInfo.list')}}">Пользователи</a>
                         </li>
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="{{route('schedule.list')}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Расписание </a>
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                                Расписание
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-{{--                                                            @foreach($schoolClass as $item)--}}
-{{--                                                            <li><a class="dropdown-item" href="{{route('schedule.list', ['schoolClass'=>$item->id])}}">{{$item->num}}{{$item->letter}} Класс--}}
-{{--                                                                </a></li>--}}
-{{--                                                            @endforeach--}}
+                                @foreach(\App\Models\SchoolClass::query()->orderBy('num')->get() as $item)
+                                  <li><a class="dropdown-item" href="{{route('schedule.list', ['schoolClass'=>$item->id])}}">
+                                          {{$item->num}} {{$item->letter}} класс</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                                Журнал
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach(\App\Models\SchoolClass::query()->orderBy('num')->get() as $item)
+                                    <li><a class="dropdown-item" href="{{route('journal.show', ['schoolClass'=>$item->id])}}">
+                                            {{$item->num}} {{$item->letter}} класс</a></li>
+                                @endforeach
                             </ul>
                         </li>
                     </ul>
@@ -64,6 +75,7 @@
     @include('flash-messages')
     @yield('content')
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
 </body>
 </html>
