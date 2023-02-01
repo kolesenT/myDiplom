@@ -44,7 +44,17 @@
                 <a class="btn btn-primary" href="{{route('schClass.createForm')}}" role="button">Добавить </a>
             </div>
             <div class="col-6">
-
+                @foreach($daysPeriod as $day)
+                <div class="card text-center">
+                    <div class="card-header">
+                        {{$day}}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                </div>
+                @endforeach
             </div>
             <div class="col-3">
                 <h3>Предметы</h3>

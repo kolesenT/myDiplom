@@ -72,4 +72,9 @@ class User_info extends Model
         return $this -> belongsToMany(SchoolClass::class, 'class_user_info',
             'user_info_id', 'class_id');
     }
+
+    public function grades()
+    {
+        return $this -> hasMany(Grade::class);
+    }
 }

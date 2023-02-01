@@ -9,12 +9,12 @@
             <form action="{{route('journal.show', ['schoolClass' => $schoolClass->id])}}">
                 <select name="discipline" class="form-select" aria-label="Default select example">
                     <option value="" selected> Предмет </option>
-                    @if($discipline->count() > 1)
-                     @foreach($discipline as $d)
-                        <option value="{{$d->id}}"> {{$d->title}} </option>
+                    @if($current_disc == 0)
+                     @foreach($discipline as $disc)
+                        <option value="{{$disc->id}}"> {{$disc->title}} </option>
                      @endforeach
                     @else
-                        <option value="{{$discipline->id}}" selected> {{$discipline->title}} </option>
+                        <option value="{{$discipline->id}}"  selected  > {{$discipline->title}} </option>
                     @endif
                 </select>
                 <br>
@@ -26,26 +26,43 @@
                 <div>{{$period->end_period}}</div>
             </div>
             <br>
-            @if($my_disc > 0)
-            <table>
-                <thead>
-                <tr>
-{{--                    <th scope="col">№ </th>--}}
-                    <th scope="col"> ФИО </th>
-                    <th scope="col"> Дата </th>
-                    <th scope="col"> Оценка </th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
+            @if($current_disc > 0)
+                <div class="container overflow-auto">
+                    <table class="table table-bordered border-primary">
+                        <thead>
                         <tr>
-                            <td>{{ $user->fullname }}</td>
-                            <td> 1 </td>
-                            <td> 5 </td>
+                            <th scope="col" style="width: 20rem" > ФИО </th>
+                            @foreach($lessonDays as $item)
+                                <th scope="col"> <span style="writing-mode: vertical-lr; transform: rotate(180deg)">  {{ $item->format('d.m')}}  </span></th>
+                            @endforeach
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody>
+                         @foreach($users as $user)
+                            <tr>
+                                <td>{{ $user->fullname }}</td>
+
+                                    @foreach($lessonDays as $date)
+                                    <td>
+                                        @foreach($grades as $grade)
+                                            @if($grade == $user->id)
+                                            <label>{{ $grade["$user->id:$date"] ?? ' no' }}</label>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    @endforeach
+
+{{--                                <td>--}}
+{{--                                    <button class="btn btn-primary" href="#" name="[]" role="button">Добавить Д/З</button>--}}
+{{--                                </td>--}}
+
+{{--                                <td> {{$user->grades->where('discipline_id', $current_disc)->where('my_date', $my_date[0])}} </td>--}}
+{{--                                <td>1</td>--}}
+                            </tr>
+                         @endforeach
+                        </tbody>
+                    </table>
+                </div>
             @else
                 <h2>Выберите предмет!</h2>
             @endif
