@@ -63,20 +63,26 @@ class SchoolClassController extends Controller
             ->where('name', User_info::IS_PUPIL)
             ->first();
 
-        $users = User_info::where('role_id', $role->id)
+        $users = User_info::query()
+            ->with(['schoolClass', 'role'])
+            ->where(function ($q) use($role) {
+                $q->where('role_id', $role->id);
+            })
             ->orderBy('surname')
             ->orderBy('name')
             ->orderBy('patronymic')
             ->get();
 
-        return view('schoolClass.addUser', compact('schoolClass', 'users'));
+
+        return view('schoolClass.addUserForm', compact('schoolClass', 'users'));
     }
 
-    public function addUsers(SchoolClass $schoolClass, CreateRequest $request)
+    public function addUsers(SchoolClass $schoolClass, Request $request)
     {
-        echo '<pre>';
-        dd();
-        echo '</pre>';
+        $data = $request['users'];
+        $schoolClass ->users() ->attach($data);
+
+        session()->flash('success', 'Success!');
 
         return redirect()->route('schClass.show', ['schoolClass' => $schoolClass->id]);
     }

@@ -26,8 +26,6 @@ class CreateRequest extends FormRequest
         return [
             'num' => ['required', 'numeric'],
             'letter' => ['string', 'min:1', 'max:2'],
-            'users' => ['numeric', 'min:1'],
-            'users.*' => ['exists:user_info,id'],
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Day;
 use App\Models\Discipline;
 use App\Models\NumLesson;
 use App\Models\Schedule;
@@ -23,18 +24,21 @@ class MainController extends Controller
         $schoolClass = SchoolClass::all();
         $disciplines = Discipline::all();
         $lessons = NumLesson::query()->orderBy('num')->get();
+        $days = Day::query()->orderBy('id')->get();
         $user = auth()->user();
         $schedules = Schedule::query()
             ->with(['discipline', 'day', 'class', 'numLesson'])
             ->where(function ($q) use($user) {
-                $q -> where('class_id', $user->userInfo->schoolClass);
+                $q -> where('class_id', 2);
             })
-            ->first($user->userInfo->schoolClass);
+            ->orderBy('day_id')
+            ->orderBy('num_lesson_id')
+            ->get();
 
-        echo '<pre>';
-        dd($);
-        echo '</pre>';
-        return view('home', compact('schoolClass', 'disciplines', 'lessons', 'daysPeriod'));
+//        echo '<pre>';
+//        dd($schedules);
+//        echo '</pre>';
+        return view('home', compact('schoolClass', 'disciplines', 'lessons', 'schedules', 'days'));
     }
 
     public  function lessons()

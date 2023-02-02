@@ -69,6 +69,8 @@ class UserInfoController extends Controller
         $data = $request->validated();
 
         $userInfo ->fill($data);
+        $userInfo ->role() ->associate($data['roles']);
+        $userInfo ->gender()->associate($data['gender']);
         $userInfo -> save();
 
         session()->flash('success', 'Success!');

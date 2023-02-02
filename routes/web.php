@@ -59,17 +59,19 @@ Route::post('/logout', [LoginController::class, 'logout'])
     ->name('logout');
 
 Route::group(
-    ['prefix' => '/discipline', 'middleware' => 'auth'],
+    ['prefix' => '/discipline', 'middleware' => ['auth', 'can:view,discipline']],
     function (){
         Route::get('', [DisciplineController::class, 'list'])
             ->name('discipline.list');
 
-        Route::get('/create', [DisciplineController::class, 'createForm'])
-            ->name('discipline.createForm');
-        Route::post('/create', [DisciplineController::class, 'create'])
-            ->name('discipline.create');
-
-        Route::group(['prefix' => '/{discipline}/edit'], function () {
+        Route::group(['prefix' => '/create', 'middleware' => 'can:create,discipline'],function () {
+            Route::get('', [DisciplineController::class, 'createForm'])
+                ->name('discipline.createForm');
+            Route::post('', [DisciplineController::class, 'create'])
+                ->name('discipline.create');
+        });
+        
+        Route::group(['prefix' => '/{discipline}/edit', 'middleware' => 'can:update,discipline'], function () {
             Route::get('', [DisciplineController::class, 'editForm'])
                 ->name('discipline.editForm');
 
@@ -78,7 +80,7 @@ Route::group(
         });
 
         Route::post('/{discipline}/delete', [DisciplineController::class, 'delete'])
-            ->name('discipline.delete');
+            ->name('discipline.delete')->middleware('can:delete,discipline');
     }
 );
 
@@ -110,8 +112,8 @@ Route::group(
         Route::get('/{schoolClass}/addUsers', [SchoolClassController::class, 'addUsersForm'])
             ->name('schClass.addUsersForm');
 
-//        Route::post('/{schoolClass}/addUsers', [SchoolClassController::class, 'addUsers'])
-//            ->name('schClass.addUsers');
+        Route::post('/{schoolClass}/addUsers', [SchoolClassController::class, 'addUsers'])
+            ->name('schClass.addUsers');
     }
 );
 

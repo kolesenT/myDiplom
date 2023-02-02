@@ -2,6 +2,27 @@
 
 @section('title', 'Админ Панель')
 @section('content')
+
+        <div class="d-flex flex-row mb-3 justify-content-between" style="flex-wrap: wrap">
+            @foreach($days as $day)
+                <div class="card mb-3" style="min-width: 400px;">
+                    <div class="card-header">
+                        <h3>{{$day->title}} </h3>
+                    </div>
+                    @foreach($schedules as $schedule)
+                        @if($day->id == $schedule->day->id)
+                            <div class="card-body">
+                                <h4 class="card-title">{{$schedule->discipline->title}}</h4>
+                                <p class="card-text">Нету д/з</p>
+                                <p class="card-text">{{$schedule->numLesson->begin_time}}.00 -
+                                    {{$schedule->numLesson->begin_time}}.{{$schedule->numLesson->lesson_time}}</p>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            @endforeach
+        </div>
+@can('view', \App\Models\User_info::class)
          <div class="row text-start">
             <div class="col-3">
                 <div class="card" style="width: 18rem;">
@@ -43,19 +64,9 @@
                 <br>
                 <a class="btn btn-primary" href="{{route('schClass.createForm')}}" role="button">Добавить </a>
             </div>
-            <div class="col-6">
-                @foreach($daysPeriod as $day)
-                <div class="card text-center">
-                    <div class="card-header">
-                        {{$day}}
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                </div>
-                @endforeach
-            </div>
+           <div  class="col-6">
+
+           </div>
             <div class="col-3">
                 <h3>Предметы</h3>
                 <ul class="list-group">
@@ -67,5 +78,5 @@
                 <a class="btn btn-primary" href="{{route('discipline.createForm')}}" role="button">Добавить </a>
             </div>
         </div>
-
+@endcan
 @endsection

@@ -73,10 +73,13 @@ class JournalController extends Controller
        foreach($classGrade as $item) {
           $grades["$item->userInfo->id:$item->my_date"] = $item->grade;
        }
+//"$item->userInfo->id:$item->my_date"
 
-//        echo '<pre>';
-//        dd($grades);
-//        echo '</pre>';
+//    echo '<pre>';
+//    dd($user->role->name);
+//    echo '</pre>';
+
+
 
 //foreach ($users as $user){
 //    echo '<pre>';

@@ -24,16 +24,23 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{route('home')}}">Главная</a>
                         </li>
+                        @can('view', \App\Models\SchoolClass::class)
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('schClass.list')}}">Классы</a>
                         </li>
+                        @endcan
+                        @can('view', \App\Models\Discipline::class)
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('discipline.list')}}">Предметы</a>
                         </li>
+                        @endcan
+
+                        @can('view', \App\Models\User_info::class)
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('userInfo.list')}}">Пользователи</a>
                         </li>
-
+                        @endcan
+                        @can('view', \App\Models\Schedule::class)
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
                                 Расписание
@@ -45,6 +52,9 @@
                                 @endforeach
                             </ul>
                         </li>
+                        @endcan
+                        @can('view', \App\Models\Journal::class)
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
                                 Журнал
@@ -56,6 +66,8 @@
                                 @endforeach
                             </ul>
                         </li>
+                        @endcan
+
                     </ul>
                     @endif
                     @if(auth()->check())

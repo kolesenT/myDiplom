@@ -14,19 +14,11 @@ class ScheduleController extends Controller
 {
     public function list(SchoolClass $schoolClass)
     {
-        //SchoolClass $schoolClass
-       // $schoolClass = SchoolClass::find(2);
         $schedule = Schedule::query()
             ->where('class_id', $schoolClass->id)
             ->orderBy('day_id')->get();
 
         $days = Day::query()->orderBy('id')->get();
-
-       //$schoolClass = SchoolClass::query()->orderBy('id')->get();
-
-//        echo '<pre>';
-//        dd($schoolClass);
-//        echo '</pre>';
 
         return view('schedule.list', compact('schedule', 'days', 'schoolClass'));
     }
@@ -69,7 +61,6 @@ class ScheduleController extends Controller
                 $schedule -> save();
             }
         }
-
         session()->flash('success', 'Success!');
         return redirect()->route('schedule.list', ['schoolClass' =>  $current_class]);
     }
