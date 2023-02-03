@@ -19,20 +19,21 @@ use Illuminate\Http\Request;
 
 class JournalController extends Controller
 {
-   public function show(SchoolClass $schoolClass, Request $request)
+    public function show(SchoolClass $schoolClass, Request $request)
     {
         $period = Period::query()->first();
 
         $current_disc = $request->has('discipline') ? $request->get('discipline') : 0;
 
-       $days_collection = Schedule::where(function ($q) use ($schoolClass, $current_disc){
-           $q->where('class_id', $schoolClass->id);
-           $q->where('discipline_id', $current_disc);})
-           ->orderBy('day_id')
-           ->get('day_id');
+        $days_collection = Schedule::where(function ($q) use ($schoolClass, $current_disc) {
+            $q->where('class_id', $schoolClass->id);
+            $q->where('discipline_id', $current_disc);
+        })
+            ->orderBy('day_id')
+            ->get('day_id');
 
         $daysNumber = [];
-        foreach ($days_collection as $day){
+        foreach ($days_collection as $day) {
             $daysNumber[] = $day->day_id;
         }
 
@@ -41,32 +42,31 @@ class JournalController extends Controller
             new Carbon($period->end_period)
         );
 
-       $lessonDays = [];
-       foreach ($daysPeriod as $item)
-       {
-           if (in_array($item->dayOfWeek, $daysNumber))
-           {
-               $lessonDays[] = $item;
-           }
-       }
+        $lessonDays = [];
+        foreach ($daysPeriod as $item) {
+            if (in_array($item->dayOfWeek, $daysNumber)) {
+                $lessonDays[] = $item;
+            }
+        }
 
         $discipline = $current_disc ?
-            Discipline::query()-> where('id', $request->get('discipline'))->first() :
+            Discipline::query()->where('id', $request->get('discipline'))->first() :
             Discipline::query()->orderBy('title')->get();
 
         $users = $current_disc ? $schoolClass->users : null;
 
-       $classGrade = Grade::query()
-           ->with(['userInfo'])
-           ->where(function ($q) use ($current_disc, $users){
-                $q->where('discipline_id', $current_disc);})
-                //$q->whereIn('userInfo.id', );})
-           ->get();
+        $classGrade = Grade::query()
+            ->with(['userInfo'])
+            ->where(function ($q) use ($current_disc, $users) {
+                $q->where('discipline_id', $current_disc);
+            })
+            //$q->whereIn('userInfo.id', );})
+            ->get();
 
-       $grades = [];
-       foreach($classGrade as $item) {
-          $grades["$item->userInfo->id:$item->my_date"] = $item->grade;
-       }
+        $grades = [];
+        foreach ($classGrade as $item) {
+            $grades["$item->userInfo->id:$item->my_date"] = $item->grade;
+        }
 
 
 //foreach ($users as $user){

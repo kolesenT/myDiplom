@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class SchoolClassController extends Controller
 {
-    public  function list()
+    public function list()
     {
         $schoolClass = SchoolClass::query()->orderBy('num')->orderBy('letter')->get();
         return view('schoolClass.list', compact('schoolClass'));
@@ -22,7 +22,7 @@ class SchoolClassController extends Controller
         return view('schoolClass.create');
     }
 
-    public  function create(CreateRequest $request)
+    public function create(CreateRequest $request)
     {
         $data = $request->validated();
 
@@ -65,7 +65,7 @@ class SchoolClassController extends Controller
 
         $users = User_info::query()
             ->with(['schoolClass', 'role'])
-            ->where(function ($q) use($role) {
+            ->where(function ($q) use ($role) {
                 $q->where('role_id', $role->id);
             })
             ->orderBy('surname')
@@ -79,7 +79,7 @@ class SchoolClassController extends Controller
     public function addUsers(SchoolClass $schoolClass, Request $request)
     {
         $data = $request['users'];
-        $schoolClass ->users() ->attach($data);
+        $schoolClass->users()->attach($data);
 
         session()->flash('success', 'Success!');
 

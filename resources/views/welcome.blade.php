@@ -6,8 +6,8 @@
         @if (!auth()->check())
             <div>
                 <a href="{{route('sing-up.codeForm')}}">Войти по пригласительному коду</a>
-{{--                <br>--}}
-{{--                <a href="{{route('sing-in')}}">Регистрация</a>--}}
+                {{--                <br>--}}
+                {{--                <a href="{{route('sing-in')}}">Регистрация</a>--}}
                 <br>
                 <a href="{{route('login')}}">Войти</a>
                 <br>

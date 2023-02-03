@@ -20,9 +20,8 @@ class LoginController extends Controller
     {
         $data = $request->validated();
 
-        if (Auth::attempt($data))
-        {
-           return redirect()->route('home');
+        if (Auth::attempt($data)) {
+            return redirect()->route('home');
         }
         return redirect()->route('welcome');
     }

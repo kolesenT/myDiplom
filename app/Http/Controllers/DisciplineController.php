@@ -14,7 +14,7 @@ class DisciplineController extends Controller
         return view('discipline.list', compact('disciplines'));
     }
 
-    public  function createForm()
+    public function createForm()
     {
         return view('discipline.create');
     }
@@ -31,15 +31,15 @@ class DisciplineController extends Controller
         return redirect()->route('discipline.list');
     }
 
-    public  function  editForm(Discipline $discipline)
+    public function editForm(Discipline $discipline)
     {
         return view('discipline.edit', compact('discipline'));
     }
 
-    public function  edit(Discipline $discipline, EditRequest $request)
+    public function edit(Discipline $discipline, EditRequest $request)
     {
-        $data = $request ->validated();
-        $discipline -> fill($data);
+        $data = $request->validated();
+        $discipline->fill($data);
         $discipline->save();
 
         session()->flash('success', 'Success!');
@@ -47,7 +47,7 @@ class DisciplineController extends Controller
         return redirect()->route('discipline.list');
     }
 
-    public  function delete(Discipline $discipline)
+    public function delete(Discipline $discipline)
     {
         $discipline->delete();
 

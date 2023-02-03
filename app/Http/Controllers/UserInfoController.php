@@ -22,7 +22,7 @@ class UserInfoController extends Controller
             ->get();
 
         $roles = Role::all();
-        return view('user.list', compact('userInfo','roles'));
+        return view('user.list', compact('userInfo', 'roles'));
     }
 
     public function createForm()
@@ -34,19 +34,19 @@ class UserInfoController extends Controller
 
     public function create(CreateRequest $request)
     {
-        $data = $request ->validated();
+        $data = $request->validated();
 
         $userinfo = new User_info($data);
 
         $code = new Code();
-        $code -> code_new = 1;
-        $code ->save();
+        $code->code_new = 1;
+        $code->save();
 
-        $userinfo -> code_id = $code->id;
+        $userinfo->code_id = $code->id;
         $userinfo->gender_id = $data['gender'];
         $userinfo->role_id = $data['roles'];
 
-        $userinfo -> save();
+        $userinfo->save();
 
         session()->flash('success', 'Success!');
 
@@ -64,10 +64,10 @@ class UserInfoController extends Controller
     {
         $data = $request->validated();
 
-        $userInfo ->fill($data);
-        $userInfo ->role() ->associate($data['roles']);
-        $userInfo ->gender()->associate($data['gender']);
-        $userInfo -> save();
+        $userInfo->fill($data);
+        $userInfo->role()->associate($data['roles']);
+        $userInfo->gender()->associate($data['gender']);
+        $userInfo->save();
 
         session()->flash('success', 'Success!');
 

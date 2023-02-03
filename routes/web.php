@@ -47,7 +47,7 @@ Route::group(
 
 Route::group(
     ['prefix' => '/login'],
-    function (){
+    function () {
         Route::get('', [LoginController::class, 'loginForm'])
             ->name('login');
         Route::post('', [LoginController::class, 'loginIn'])
@@ -60,11 +60,11 @@ Route::post('/logout', [LoginController::class, 'logout'])
 
 Route::group(
     ['prefix' => '/discipline', 'middleware' => 'auth'],
-    function (){
+    function () {
         Route::get('', [DisciplineController::class, 'list'])
             ->name('discipline.list');
 
-        Route::group(['prefix' => '/create', 'middleware' => 'can:create,\App\Discipline'],function () {
+        Route::group(['prefix' => '/create', 'middleware' => 'can:create,\App\Discipline'], function () {
             Route::get('', [DisciplineController::class, 'createForm'])
                 ->name('discipline.createForm');
             Route::post('', [DisciplineController::class, 'create'])
@@ -86,11 +86,11 @@ Route::group(
 
 Route::group(
     ['prefix' => '/class', 'middleware' => 'auth'],
-    function (){
+    function () {
         Route::get('', [SchoolClassController::class, 'list'])
             ->name('schClass.list');
 
-        Route::group(['prefix' => '/create', 'middleware' => 'can:create,\App\SchoolClass'], function (){
+        Route::group(['prefix' => '/create', 'middleware' => 'can:create,\App\SchoolClass'], function () {
             Route::get('', [SchoolClassController::class, 'createForm'])
                 ->name('schClass.createForm');
             Route::post('', [SchoolClassController::class, 'create'])
@@ -111,7 +111,7 @@ Route::group(
         Route::get('/{schoolClass}/show', [SchoolClassController::class, 'show'])
             ->name('schClass.show')->middleware('can:view,schoolClass');
 
-        Route::group(['prefix' => '/{schoolClass}/addUsers'], function (){
+        Route::group(['prefix' => '/{schoolClass}/addUsers'], function () {
             Route::get('', [SchoolClassController::class, 'addUsersForm'])
                 ->name('schClass.addUsersForm');
 
@@ -123,19 +123,19 @@ Route::group(
 
 Route::group(
     ['prefix' => '/users', 'middleware' => 'auth'],
-        function(){
+    function () {
         Route::get('', [UserInfoController::class, 'list'])
             ->name('userInfo.list');
 
-        Route::group(['prefix' =>'/create', 'middleware' => 'can:create,\App\User_info'], function (){
+        Route::group(['prefix' => '/create', 'middleware' => 'can:create,\App\User_info'], function () {
             Route::get('', [UserInfoController::class, 'createForm'])
-            ->name('users.createForm');
+                ->name('users.createForm');
 
             Route::post('', [UserInfoController::class, 'create'])
                 ->name('users.create');
         });
 
-        Route::group(['prefix' => '/{userInfo}/edit', 'middleware' => 'can:update,userInfo'], function (){
+        Route::group(['prefix' => '/{userInfo}/edit', 'middleware' => 'can:update,userInfo'], function () {
             Route::get('', [UserInfoController::class, 'editForm'])
                 ->name('users.editForm');
 
@@ -143,21 +143,21 @@ Route::group(
                 ->name('users.edit');
         });
 
-            Route::post('/{userInfo}/delete', [UserInfoController::class, 'delete'])
-                ->name('users.delete')->middleware('can:delete,userInfo');
+        Route::post('/{userInfo}/delete', [UserInfoController::class, 'delete'])
+            ->name('users.delete')->middleware('can:delete,userInfo');
 
-            Route::get('/{userInfo}/show', [UserInfoController::class, 'show'])
-                ->name('users.show')->middleware('can:view,userInfo');
+        Route::get('/{userInfo}/show', [UserInfoController::class, 'show'])
+            ->name('users.show')->middleware('can:view,userInfo');
 
-        });
+    });
 
 Route::group(
-    ['prefix'=> '/schedule', 'middleware' => 'auth'],
-    function (){
+    ['prefix' => '/schedule', 'middleware' => 'auth'],
+    function () {
         Route::get('/{schoolClass}', [ScheduleController::class, 'list'])
             ->name('schedule.list');
 
-        Route::group(['prefix' =>'/create', 'middleware' => 'can:create,\App\SchoolClass'], function (){
+        Route::group(['prefix' => '/create', 'middleware' => 'can:create,\App\SchoolClass'], function () {
             Route::get('/{schoolClass}', [ScheduleController::class, 'createForm'])
                 ->name('schedule.createForm');
 
@@ -166,8 +166,8 @@ Route::group(
         });
     });
 
-Route::group(['prefix'=> '/journal', 'middleware' => 'auth'],
-    function (){
+Route::group(['prefix' => '/journal', 'middleware' => 'auth'],
+    function () {
         Route::get('/{schoolClass}', [JournalController::class, 'show'])
             ->name('journal.show')->middleware('can:view,schoolClass');
     });

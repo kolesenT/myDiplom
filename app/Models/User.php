@@ -46,11 +46,11 @@ class User extends Authenticatable
 
     protected function password(): Attribute
     {
-        return Attribute::make(set: fn ($value) => Hash::make($value));
+        return Attribute::make(set: fn($value) => Hash::make($value));
     }
 
     public function userInfo()
     {
-        return $this -> belongsTo(User_info::class);
+        return $this->belongsTo(User_info::class);
     }
 }

@@ -20,11 +20,11 @@ class Journal extends Model
 
     public function class()
     {
-        return $this ->belongsTo(SchoolClass::class, 'class_id');
+        return $this->belongsTo(SchoolClass::class, 'class_id');
     }
 
     public function discipline()
     {
-        return $this -> belongsTo(Discipline::class);
+        return $this->belongsTo(Discipline::class);
     }
 }

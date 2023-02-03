@@ -8,13 +8,13 @@
         <div class="col-md-8">
             <form action="{{route('journal.show', ['schoolClass' => $schoolClass->id])}}">
                 <select name="discipline" class="form-select" aria-label="Default select example">
-                    <option value="" selected> Предмет </option>
+                    <option value="" selected> Предмет</option>
                     @if($current_disc == 0)
-                     @foreach($discipline as $disc)
-                        <option value="{{$disc->id}}"> {{$disc->title}} </option>
-                     @endforeach
+                        @foreach($discipline as $disc)
+                            <option value="{{$disc->id}}"> {{$disc->title}} </option>
+                        @endforeach
                     @else
-                        <option value="{{$discipline->id}}"  selected  > {{$discipline->title}} </option>
+                        <option value="{{$discipline->id}}" selected> {{$discipline->title}} </option>
                     @endif
                 </select>
                 <br>
@@ -31,35 +31,37 @@
                     <table class="table table-bordered border-primary">
                         <thead>
                         <tr>
-                            <th scope="col" style="width: 20rem" > ФИО </th>
+                            <th scope="col" style="width: 20rem"> ФИО</th>
                             @foreach($lessonDays as $item)
-                                <th scope="col"> <span style="writing-mode: vertical-lr; transform: rotate(180deg)">  {{ $item->format('d.m')}}  </span></th>
+                                <th scope="col"><span
+                                        style="writing-mode: vertical-lr; transform: rotate(180deg)">  {{ $item->format('d.m')}}  </span>
+                                </th>
                             @endforeach
                         </tr>
                         </thead>
                         <tbody>
-                         @foreach($users as $user)
+                        @foreach($users as $user)
                             <tr>
                                 <td>{{ $user->fullname }}</td>
 
-                                    @foreach($lessonDays as $date)
+                                @foreach($lessonDays as $date)
                                     <td>
                                         @foreach($grades as $grade)
                                             @if($grade == $user->id)
-                                            <label>{{ $grade["$user->id:$date"] ?? ' no' }}</label>
+                                                <label>{{ $grade["$user->id:$date"] ?? ' no' }}</label>
                                             @endif
                                         @endforeach
                                     </td>
-                                    @endforeach
+                                @endforeach
 
-{{--                                <td>--}}
-{{--                                    <button class="btn btn-primary" href="#" name="[]" role="button">Добавить Д/З</button>--}}
-{{--                                </td>--}}
+                                {{--                                <td>--}}
+                                {{--                                    <button class="btn btn-primary" href="#" name="[]" role="button">Добавить Д/З</button>--}}
+                                {{--                                </td>--}}
 
-{{--                                <td> {{$user->grades->where('discipline_id', $current_disc)->where('my_date', $my_date[0])}} </td>--}}
-{{--                                <td>1</td>--}}
+                                {{--                                <td> {{$user->grades->where('discipline_id', $current_disc)->where('my_date', $my_date[0])}} </td>--}}
+                                {{--                                <td>1</td>--}}
                             </tr>
-                         @endforeach
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

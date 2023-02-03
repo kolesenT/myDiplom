@@ -3,7 +3,7 @@
 @section('title', 'Класс')
 
 @section('content')
-    <h2>  Ученики {{$schoolClass->num}} {{$schoolClass->letter}} класса</h2>
+    <h2> Ученики {{$schoolClass->num}} {{$schoolClass->letter}} класса</h2>
     <br>
     <div class="container row mt-4">
         <div class="col-md-8">
@@ -26,7 +26,8 @@
             </table>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-primary" href="{{route('schClass.addUsersForm', ['schoolClass' => $schoolClass->id])}}" role="button">
+            <a class="btn btn-primary" href="{{route('schClass.addUsersForm', ['schoolClass' => $schoolClass->id])}}"
+               role="button">
                 Добавить ученика</a>
         </div>
     </div>

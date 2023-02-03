@@ -13,17 +13,17 @@ class Schedule extends Model
 
     public function day()
     {
-        return $this ->belongsTo(Day::class);
+        return $this->belongsTo(Day::class);
     }
 
     public function class()
     {
-        return $this -> belongsTo(SchoolClass::class);
+        return $this->belongsTo(SchoolClass::class);
     }
 
     public function discipline()
     {
-        return $this -> belongsTo(Discipline::class);
+        return $this->belongsTo(Discipline::class);
     }
 
     public function numLesson()

@@ -17,18 +17,16 @@ class CodeController extends Controller
 
     public function singUpCode(CodeRequest $request)
     {
-        if ($request -> has('code_new')){
+        if ($request->has('code_new')) {
             $code = $request->code_new;
 
             $query = Code::query()->where('code_new', $code)->first();
 
-            if ($query)
-            {
+            if ($query) {
                 $user_info = User_info::query()->where('code_id', $query->id)->first();
 
                 return view('sing-in', compact('user_info'));
-            }
-            else{
+            } else {
                 session()->flash('error', 'code not found!');
 
                 return redirect()->route('welcome');

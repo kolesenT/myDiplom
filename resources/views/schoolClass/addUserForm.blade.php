@@ -3,7 +3,7 @@
 @section('title', 'Добавить ученика')
 
 @section('content')
-    <h2>Добавить ученика для  {{$schoolClass-> num}} {{$schoolClass->letter}} класса</h2>
+    <h2>Добавить ученика для {{$schoolClass-> num}} {{$schoolClass->letter}} класса</h2>
     <form action="{{route('schClass.addUsers', ['schoolClass' => $schoolClass -> id])}}" method="post">
         @csrf
         <select name="users" class="form-select">
@@ -13,7 +13,7 @@
             @endforeach
         </select>
         <br>
-        <button class="btn btn-primary" type="submit"> Добавить </button>
+        <button class="btn btn-primary" type="submit"> Добавить</button>
     </form>
 @endsection
 

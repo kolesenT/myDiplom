@@ -31,37 +31,36 @@ class ScheduleController extends Controller
         $discipline = Discipline::query()->orderBy('title')->get();
         return view('schedule.create', compact('days', 'numLesson', 'discipline', 'schoolClass'));
     }
+
     public function create(CreateRequest $request)
     {
         $lessons = $request->get('lesson');
         $current_class = $request->get('schoolClass');
         $day = $request->get('days');
 
-        foreach ($lessons as $key => $value)
-        {
-            if ($value)
-            {
+        foreach ($lessons as $key => $value) {
+            if ($value) {
                 $query = Schedule::query()
-                ->where('class_id', $current_class)
-                ->where('day_id', $day)
-                ->where('num_lesson_id', $key)
-                ->count();
-
-                $schedule = !$query ? new Schedule() :
-                    Schedule::query()
                     ->where('class_id', $current_class)
                     ->where('day_id', $day)
                     ->where('num_lesson_id', $key)
-                    ->first();
+                    ->count();
 
-                $schedule -> day_id = $day;
-                $schedule -> class_id = $current_class;
-                $schedule -> num_lesson_id = $key;
-                $schedule -> discipline_id = $value;
-                $schedule -> save();
+                $schedule = !$query ? new Schedule() :
+                    Schedule::query()
+                        ->where('class_id', $current_class)
+                        ->where('day_id', $day)
+                        ->where('num_lesson_id', $key)
+                        ->first();
+
+                $schedule->day_id = $day;
+                $schedule->class_id = $current_class;
+                $schedule->num_lesson_id = $key;
+                $schedule->discipline_id = $value;
+                $schedule->save();
             }
         }
         session()->flash('success', 'Success!');
-        return redirect()->route('schedule.list', ['schoolClass' =>  $current_class]);
+        return redirect()->route('schedule.list', ['schoolClass' => $current_class]);
     }
 }
