@@ -25,12 +25,6 @@ class JournalController extends Controller
 
         $current_disc = $request->has('discipline') ? $request->get('discipline') : 0;
 
-//        $days_collection = Schedule::query()
-//            ->where('class_id', $schoolClass->id)
-//            ->where('discipline_id', $current_disc)
-//            ->orderBy('day_id')
-//            ->get('day_id');
-
        $days_collection = Schedule::where(function ($q) use ($schoolClass, $current_disc){
            $q->where('class_id', $schoolClass->id);
            $q->where('discipline_id', $current_disc);})
@@ -73,12 +67,6 @@ class JournalController extends Controller
        foreach($classGrade as $item) {
           $grades["$item->userInfo->id:$item->my_date"] = $item->grade;
        }
-//"$item->userInfo->id:$item->my_date"
-
-//    echo '<pre>';
-//    dd($user->role->name);
-//    echo '</pre>';
-
 
 
 //foreach ($users as $user){

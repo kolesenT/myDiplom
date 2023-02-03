@@ -39,5 +39,7 @@
     @endforeach
 </div>
 <br>
+@can('create',\App\Models\Schedule::class)
 <a class="btn btn-primary" href="{{route('schedule.createForm', ['schoolClass'=>$schoolClass->id])}}" role="button">Добавить </a>
+@endcan
 @endsection

@@ -33,11 +33,6 @@ class CodeController extends Controller
 
                 return redirect()->route('welcome');
             }
-
-
-
-
         }
-
     }
 }

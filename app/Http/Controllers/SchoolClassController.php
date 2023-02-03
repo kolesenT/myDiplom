@@ -73,7 +73,6 @@ class SchoolClassController extends Controller
             ->orderBy('patronymic')
             ->get();
 
-
         return view('schoolClass.addUserForm', compact('schoolClass', 'users'));
     }
 

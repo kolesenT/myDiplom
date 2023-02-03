@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Discipline\CreateRequest;
 use App\Http\Requests\Discipline\EditRequest;
 use App\Models\Discipline;
-use Illuminate\Http\Request;
 
 class DisciplineController extends Controller
 {
@@ -23,9 +22,7 @@ class DisciplineController extends Controller
     public function create(CreateRequest $request)
     {
         $data = $request->validated();
-//           echo '<pre>';
-//           dd($data);
-//            echo '</pre>';
+
         $discipline = new Discipline($data);
         $discipline->save();
 

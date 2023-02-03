@@ -13,7 +13,7 @@ class ScedulePolicy
 
     public function viewAny(User $user)
     {
-        return $user->userInfo->role->name === User_info::IS_ADMIN || $user->userInfo->role->name === User_info::IS_TEACHER;
+        //return $user->userInfo->role->name === User_info::IS_ADMIN || $user->userInfo->role->name === User_info::IS_TEACHER;
     }
 
     public function view(User $user)

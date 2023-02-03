@@ -23,7 +23,7 @@ class DisciplinePolicy
 
     public function create(User $user)
     {
-        return $user->userInfo->role->name === User_info::IS_ADMIN || $user->userInfo->role->name === User_info::IS_TEACHER;
+        return $user->userInfo->role->name === User_info::IS_ADMIN;
     }
 
     public function update(User $user)
@@ -33,11 +33,11 @@ class DisciplinePolicy
 
     public function delete(User $user)
     {
-        return $user->userInfo->role->name === User_info::IS_ADMIN || $user->userInfo->role->name === User_info::IS_TEACHER;
+        return $user->userInfo->role->name === User_info::IS_ADMIN;
     }
 
     public function forceDelete(User $user)
     {
-        return $user->userInfo->role->name === User_info::IS_ADMIN || $user->userInfo->role->name === User_info::IS_TEACHER;
+        return $user->userInfo->role->name === User_info::IS_ADMIN;
     }
 }

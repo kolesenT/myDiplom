@@ -35,10 +35,6 @@ class UserInfoController extends Controller
     public function create(CreateRequest $request)
     {
         $data = $request ->validated();
-//            echo '<pre>';
-//            dd($data);
-//            echo '</pre>';
-
 
         $userinfo = new User_info($data);
 
@@ -93,9 +89,6 @@ class UserInfoController extends Controller
 
     public function show(User_info $userInfo)
     {
-//                   echo '<pre>';
-//           dd($userInfo ->user());
-//           echo '</pre>';
         return view('user.show', compact('userInfo'));
     }
 }

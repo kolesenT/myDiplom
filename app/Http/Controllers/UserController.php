@@ -20,9 +20,7 @@ class UserController extends Controller
     public function singIn(SingInRequest $request)
     {
         $data = $request -> validated();
-//        echo '<pre>';
-//        dd($request->get('user_info'));
-//        echo '</pre>';
+
         $user = new User($data);
 
         $user_info = User_info::find($request->get('user_info'));
