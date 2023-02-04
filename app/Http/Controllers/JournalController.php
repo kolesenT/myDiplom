@@ -55,18 +55,19 @@ class JournalController extends Controller
 
         $users = $current_disc ? $schoolClass->users : null;
 
-        $classGrade = Grade::query()
+        $grades = Grade::query()
             ->with(['userInfo'])
-            ->where(function ($q) use ($current_disc, $users) {
+            ->where(function ($q) use ($current_disc, $users, $period) {
                 $q->where('discipline_id', $current_disc);
+                $q->whereBetween('my_date', [$period->begin_period, $period->end_period]);
             })
-            //$q->whereIn('userInfo.id', );})
+            ->orderBy('my_date')
             ->get();
 
-        $grades = [];
-        foreach ($classGrade as $item) {
-            $grades["$item->userInfo->id:$item->my_date"] = $item->grade;
-        }
+//        $grades = [];
+//        foreach ($classGrade as $item) {
+//            $grades["$item->userInfo->id:$item->my_date"] = $item->grade;
+//        }
 
 
 //foreach ($users as $user){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Day;
 use App\Models\Discipline;
 use App\Models\Grade;
+use App\Models\Journal;
 use App\Models\NumLesson;
 use App\Models\Schedule;
 use App\Models\SchoolClass;
@@ -24,7 +25,6 @@ class MainController extends Controller
         $schoolClass = SchoolClass::all();
         $disciplines = Discipline::all();
         $lessons = NumLesson::query()->orderBy('num')->get();
-        //$days = Day::query()->orderBy('id')->get();
         $user = auth()->user();
 
         //Как узнать в каком классе учится ученик? (может быть кто-то другой и у него нет класса)
@@ -70,14 +70,23 @@ class MainController extends Controller
                 })
                 ->orderBy('my_date')
                 ->get();
+
+            $homeWork = Journal::query()
+                ->where(function ($q) use ($current_class, $start, $end) {
+                    $q->where('class_id', $current_class);
+                    $q->whereBetween('my_date', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
+                })
+                ->orderBy('my_date')
+                ->get();
         } else {
             $current_week = 0;
             $grades = 0;
             $days = [];
+            $homeWork = [];
         }
 
         return view('home', compact('schoolClass', 'disciplines', 'lessons', 'schedules',
-            'days', 'current_week', 'grades'));
+            'days', 'current_week', 'grades', 'homeWork'));
     }
 
     public function lessons()

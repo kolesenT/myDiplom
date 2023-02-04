@@ -47,19 +47,13 @@
                                 @foreach($lessonDays as $date)
                                     <td>
                                         @foreach($grades as $grade)
-                                            @if($grade == $user->id)
-                                                <label>{{ $grade["$user->id:$date"] ?? ' no' }}</label>
+                                            @if($grade->iser_info_id == $user->id)
+                                                <label>{{ $grade->grade ?? ' ' }}</label>
+{{--                                                <label>{{ $grade["$user->id:$date"] ?? ' ' }}</label>--}}
                                             @endif
                                         @endforeach
                                     </td>
                                 @endforeach
-
-                                {{--                                <td>--}}
-                                {{--                                    <button class="btn btn-primary" href="#" name="[]" role="button">Добавить Д/З</button>--}}
-                                {{--                                </td>--}}
-
-                                {{--                                <td> {{$user->grades->where('discipline_id', $current_disc)->where('my_date', $my_date[0])}} </td>--}}
-                                {{--                                <td>1</td>--}}
                             </tr>
                         @endforeach
                         </tbody>

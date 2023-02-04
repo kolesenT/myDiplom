@@ -24,6 +24,12 @@
                                     @endif
                                 @endforeach
                             </div>
+                            @foreach($homeWork as $item)
+                                @if(($item->my_date == $current_week[$i]->format('Y-m-d')) &&
+                                           ($schedule->discipline->id == $item->discipline_id))
+                                    <p class="card-text">Д/З: {{ $item->homework ?? 'Нет ' }}  </p>
+                                @endif
+                            @endforeach
                             <p class="card-text">Нет д/з</p>
                             <p class="card-text">{{$schedule->numLesson->begin_time}}.00 -
                                 {{$schedule->numLesson->begin_time}}.{{$schedule->numLesson->lesson_time}}</p>
