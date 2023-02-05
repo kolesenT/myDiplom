@@ -12,7 +12,6 @@ use App\Models\SchoolClass;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
-
 class MainController extends Controller
 {
     public function index()
@@ -27,16 +26,6 @@ class MainController extends Controller
         $lessons = NumLesson::query()->orderBy('num')->get();
         $user = auth()->user();
 
-        //Как узнать в каком классе учится ученик? (может быть кто-то другой и у него нет класса)
-        //Не знаю как правильно реализовать закомментированный запрос через Model
-        //2 для примера, так это $user->userInfo->id
-//        select distinct class_user_info.class_id
-//        from user_info, users, class_user_info
-//        where user_info.id = users.user_info_id and
-//        class_user_info.user_info_id = user_info.id and
-//        user_info.id = 2;
-
-        //пока как-то так, хотя запись одна!!!
         $current_class = 0;
         foreach ($user->userInfo->schoolClass as $item) {
             $current_class = $item->id;
@@ -52,7 +41,6 @@ class MainController extends Controller
             ->get();
 
         if ($schedules->count()) {
-
             $days = Day::query()->orderBy('id')->get();
             $current_day = Carbon::today();
 
@@ -85,8 +73,16 @@ class MainController extends Controller
             $homeWork = [];
         }
 
-        return view('home', compact('schoolClass', 'disciplines', 'lessons', 'schedules',
-            'days', 'current_week', 'grades', 'homeWork'));
+        return view('home', compact(
+            'schoolClass',
+            'disciplines',
+            'lessons',
+            'schedules',
+            'days',
+            'current_week',
+            'grades',
+            'homeWork'
+        ));
     }
 
     public function lessons()

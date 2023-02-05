@@ -18,7 +18,11 @@ class SchoolClass extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User_info::class, 'class_user_info',
-            'class_id', 'user_info_id');
+        return $this->belongsToMany(
+            User_info::class,
+            'class_user_info',
+            'class_id',
+            'user_info_id'
+        );
     }
 }

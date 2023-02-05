@@ -28,4 +28,3 @@ class EditRequest extends FormRequest
         ];
     }
 }
-//, 'unique:codes'

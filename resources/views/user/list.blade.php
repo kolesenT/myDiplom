@@ -65,19 +65,13 @@
                             @endcan
                         </td>
                     </tr>
-
                 @endforeach
-
                 </tbody>
-
             </table>
         </div>
-
         <div class="col-md-4">
             col-md-4
         </div>
-
-
     </div>
 @endsection
 

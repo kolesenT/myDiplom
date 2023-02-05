@@ -43,13 +43,12 @@
                         @foreach($users as $user)
                             <tr>
                                 <td>{{ $user->fullname }}</td>
-
                                 @foreach($lessonDays as $date)
                                     <td>
                                         @foreach($grades as $grade)
                                             @if($grade->iser_info_id == $user->id)
                                                 <label>{{ $grade->grade ?? ' ' }}</label>
-{{--                                                <label>{{ $grade["$user->id:$date"] ?? ' ' }}</label>--}}
+                                                <label>{{ $grade["$user->id:$date"] ?? ' ' }}</label>
                                             @endif
                                         @endforeach
                                     </td>

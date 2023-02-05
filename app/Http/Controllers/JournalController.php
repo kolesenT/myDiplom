@@ -56,35 +56,22 @@ class JournalController extends Controller
         $users = $current_disc ? $schoolClass->users : null;
 
         $grades = Grade::query()
-            ->with(['userInfo'])
-            ->where(function ($q) use ($current_disc, $users, $period) {
+            ->  with(['userInfo'])
+            ->  where(function ($q) use ($current_disc, $users, $period) {
                 $q->where('discipline_id', $current_disc);
                 $q->whereBetween('my_date', [$period->begin_period, $period->end_period]);
             })
             ->orderBy('my_date')
             ->get();
 
-//        $grades = [];
-//        foreach ($classGrade as $item) {
-//            $grades["$item->userInfo->id:$item->my_date"] = $item->grade;
-//        }
-
-
-//foreach ($users as $user){
-//    echo '<pre>';
-//    dd($user->grades->where('discipline_id', $my_disc));
-//    //$user->grades->where('discipline_id', $my_disc)->get('grade')
-//    //$user->grades->where('discipline_id', $my_disc)->where('my_date', $my_date[0])->first
-//    echo '</pre>';
-//}
-//        if ($request->has('discipline')) {
-//            $query->whereHas('discipline', function ($q) use ($request) {
-//                $q->where('discipline.id', $request->get('discipline'));
-//            });
-//        }
-
-        return view('journal.show', compact('schoolClass', 'current_disc', 'period',
-            'discipline', 'users', 'lessonDays', 'grades'));
+        return view('journal.show', compact(
+            'schoolClass',
+            'current_disc',
+            'period',
+            'discipline',
+            'users',
+            'lessonDays',
+            'grades'
+        ));
     }
 }
-

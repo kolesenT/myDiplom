@@ -42,10 +42,11 @@ class User_info extends Model
     {
         return Attribute::make(
             get: function ($value, $attributes) {
-                return  $attributes['surname'] .' ' .
+                return  $attributes['surname'] . ' ' .
                         $attributes['name'] . ' ' .
                         $attributes['patronymic'];
-        });
+            }
+        );
     }
 
     public function user()
@@ -69,8 +70,12 @@ class User_info extends Model
 
     public function schoolClass()
     {
-        return $this -> belongsToMany(SchoolClass::class, 'class_user_info',
-            'user_info_id', 'class_id');
+        return $this -> belongsToMany(
+            SchoolClass::class,
+            'class_user_info',
+            'user_info_id',
+            'class_id'
+        );
     }
 
     public function grades()

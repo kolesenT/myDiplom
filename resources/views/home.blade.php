@@ -27,10 +27,11 @@
                             @foreach($homeWork as $item)
                                 @if(($item->my_date == $current_week[$i]->format('Y-m-d')) &&
                                            ($schedule->discipline->id == $item->discipline_id))
-                                    <p class="card-text">Д/З: {{ $item->homework ?? 'Нет ' }}  </p>
+                                    <p class="card-text">Д/З: {{ $item->homework ?? 'Нет ' }} </p>
+                                @else
+                                    <p class="card-text">Нет д/з</p>
                                 @endif
                             @endforeach
-                            <p class="card-text">Нет д/з</p>
                             <p class="card-text">{{$schedule->numLesson->begin_time}}.00 -
                                 {{$schedule->numLesson->begin_time}}.{{$schedule->numLesson->lesson_time}}</p>
                         </div>
@@ -62,14 +63,10 @@
                                     <td>{{$lesson->begin_time}}.00</td>
                                     <td>{{$lesson->begin_time}}.{{$lesson->lesson_time}}</td>
                                 </tr>
-
                             @endforeach
                             </tbody>
                         </table>
                     </div>
-                    {{--                    <div class="card-footer text-muted">--}}
-                    {{--                        <a class="btn btn-primary" href="{{route('lessons')}}" role="button">Редактировать </a>--}}
-                    {{--                    </div>--}}
                 </div>
                 <br>
                 <h3>Классы</h3>

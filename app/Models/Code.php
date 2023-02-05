@@ -16,7 +16,7 @@ class Code extends Model
         'is_use'
     ];
 
-    protected $hidden =[
+    protected $hidden = [
         'code_new',
         'code_old',
     ];
@@ -25,7 +25,7 @@ class Code extends Model
         'is_use' => 0,
     ];
 
-    public function codeNew():Attribute
+    public function codeNew(): Attribute
     {
         //$this->attributes['code_new'] = $this->generate_code(10);
         return Attribute::make(set: fn ($value) => $this->generate_code(10));
@@ -33,7 +33,7 @@ class Code extends Model
 
     private function generate_code(int $number): string
     {
-        $arr =[
+        $arr = [
             'a', 'b', 'c', 'd', 'e', 'f',
             'g', 'h', 'i', 'j', 'k', 'l',
             'm', 'n', 'o', 'p', 'r', 's',
@@ -50,8 +50,7 @@ class Code extends Model
             '`', '~', '=', 'w', 'W', ':'
         ];
         $code = '';
-        for ($i = 0; $i < $number; $i++)
-        {
+        for ($i = 0; $i < $number; $i++) {
             $index = rand(0, count($arr) - 1);
             $code .= $arr[$index];
         }

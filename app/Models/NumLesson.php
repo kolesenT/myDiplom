@@ -10,6 +10,4 @@ class NumLesson extends Model
     use HasFactory;
 
     protected $table = 'num_lessons';
-
-
 }

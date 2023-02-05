@@ -30,5 +30,4 @@ class JournalPolicy
     {
         return $user->userInfo->role->name === User_info::IS_ADMIN;
     }
-
 }
