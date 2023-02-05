@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserInfo\CreateRequest;
 use App\Http\Requests\UserInfo\EditRequest;
-use App\Models\Code;
 use App\Models\Gender;
 use App\Models\Role;
 use App\Models\User_info;
-use Illuminate\Http\Request;
+use App\Services\UserInfoService;
 
 class UserInfoController extends Controller
 {
+    public function __construct(private UserInfoService $userInfoService)
+    {
+    }
+
     public function list()
     {
         $userInfo = User_info::query()
@@ -36,17 +39,7 @@ class UserInfoController extends Controller
     {
         $data = $request->validated();
 
-        $userinfo = new User_info($data);
-
-        $code = new Code();
-        $code->code_new = 1;
-        $code->save();
-
-        $userinfo->code_id = $code->id;
-        $userinfo->gender_id = $data['gender'];
-        $userinfo->role_id = $data['roles'];
-
-        $userinfo->save();
+        $this ->userInfoService->create($data);
 
         session()->flash('success', 'Success!');
 
@@ -64,10 +57,7 @@ class UserInfoController extends Controller
     {
         $data = $request->validated();
 
-        $userInfo->fill($data);
-        $userInfo->role()->associate($data['roles']);
-        $userInfo->gender()->associate($data['gender']);
-        $userInfo->save();
+        $this ->userInfoService->edit($userInfo, $data);
 
         session()->flash('success', 'Success!');
 
@@ -76,11 +66,7 @@ class UserInfoController extends Controller
 
     public function delete(User_info $userInfo)
     {
-        $id = $userInfo->code->id;
-
-        $code = Code::find($id);
-        $code->delete();
-        $userInfo->delete();
+        $this ->userInfoService->delete($userInfo);
 
         session()->flash('success', 'Success!');
 

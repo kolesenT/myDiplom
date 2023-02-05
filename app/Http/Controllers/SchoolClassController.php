@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SchoolClass\CreateRequest;
 use App\Http\Requests\SchoolClass\EditRequest;
-use App\Models\Role;
 use App\Models\SchoolClass;
-use App\Models\User_info;
+use App\Services\SchoolClassService;
 use Illuminate\Http\Request;
 
 class SchoolClassController extends Controller
 {
+    public function __construct(private SchoolClassService $schoolClassServices)
+    {
+    }
+
     public function list()
     {
         $schoolClass = SchoolClass::query()->orderBy('num')->orderBy('letter')->get();
@@ -26,8 +29,7 @@ class SchoolClassController extends Controller
     {
         $data = $request->validated();
 
-        $schoolClass = new SchoolClass($data);
-        $schoolClass->save();
+        $this -> schoolClassServices ->create($data);
 
         session()->flash('success', 'Success!');
 
@@ -42,8 +44,8 @@ class SchoolClassController extends Controller
     public function edit(SchoolClass $schoolClass, EditRequest $request)
     {
         $data = $request->validated();
-        $schoolClass->fill($data);
-        $schoolClass->save();
+
+        $this -> schoolClassServices ->edit($schoolClass, $data);
 
         session()->flash('success', 'Success!');
 
@@ -59,19 +61,7 @@ class SchoolClassController extends Controller
 
     public function addUsersForm(SchoolClass $schoolClass)
     {
-        $role = Role::query()
-            ->where('name', User_info::IS_PUPIL)
-            ->first();
-
-        $users = User_info::query()
-            ->with(['schoolClass', 'role'])
-            ->where(function ($q) use ($role) {
-                $q->where('role_id', $role->id);
-            })
-            ->orderBy('surname')
-            ->orderBy('name')
-            ->orderBy('patronymic')
-            ->get();
+        $users = $this ->schoolClassServices->addUsersForm();
 
         return view('schoolClass.addUserForm', compact('schoolClass', 'users'));
     }
@@ -79,8 +69,8 @@ class SchoolClassController extends Controller
     public function addUsers(SchoolClass $schoolClass, Request $request)
     {
         $data = $request['users'];
-        $schoolClass->users()->attach($data);
 
+        $this ->schoolClassServices->addUsers($schoolClass, $data);
         session()->flash('success', 'Success!');
 
         return redirect()->route('schClass.show', ['schoolClass' => $schoolClass->id]);
@@ -88,8 +78,7 @@ class SchoolClassController extends Controller
 
     public function delete(SchoolClass $schoolClass)
     {
-        $schoolClass->delete();
-
+        $this ->schoolClassServices->delete($schoolClass);
         session()->flash('success', 'Success!');
 
         return redirect()->route('schClass.list');

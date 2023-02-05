@@ -24,14 +24,6 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'day' => ['required', 'numeric', 'min:1'],
-            'day.*' => ['required', 'exists:days,id'],
-            'class' => ['required', 'numeric', 'min:1'],
-            'class.*' => ['required', 'exists:class,id'],
-            'discipline' => ['required', 'numeric', 'min:1'],
-            'discipline.*' => ['required', 'exists:disciplines,id'],
-            'numLesson' => ['required', 'numeric', 'min:1'],
-            'numLesson.*' => ['required', 'exists:numLessons,id'],
 
         ];
     }

@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Discipline\CreateRequest;
 use App\Http\Requests\Discipline\EditRequest;
 use App\Models\Discipline;
+use App\Services\DisciplineService;
 
 class DisciplineController extends Controller
 {
+    public function __construct(private DisciplineService $disciplineService)
+    {
+    }
+
     public function list()
     {
         $disciplines = Discipline::query()->orderBy('title')->get();
@@ -23,8 +28,7 @@ class DisciplineController extends Controller
     {
         $data = $request->validated();
 
-        $discipline = new Discipline($data);
-        $discipline->save();
+        $this ->disciplineService ->create($data);
 
         session()->flash('success', 'Success!');
 
@@ -39,8 +43,8 @@ class DisciplineController extends Controller
     public function edit(Discipline $discipline, EditRequest $request)
     {
         $data = $request->validated();
-        $discipline->fill($data);
-        $discipline->save();
+
+        $this ->disciplineService->edit($discipline, $data);
 
         session()->flash('success', 'Success!');
 
@@ -49,8 +53,7 @@ class DisciplineController extends Controller
 
     public function delete(Discipline $discipline)
     {
-        $discipline->delete();
-
+        $this->disciplineService->delete($discipline);
         session()->flash('success', 'Success!');
 
         return redirect()->route('discipline.list');
