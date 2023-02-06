@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="d-flex flex-row mb-3 justify-content-between" style="flex-wrap: wrap">
-        <p hidden="true">{{$i = 0}}</p>
+        <p hidden="true">{{$i = -1}}</p>
         @foreach($days as $day)
             <p hidden="true">{{$i++}}</p>
             <div class="card mb-3" style="min-width: 400px;">
